@@ -1,0 +1,23 @@
+name: Validate Node Translation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+
+jobs:
+  generate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set executable permission
+        run: chmod +x scripts/add-translation.sh
+
+      - name: Add Translation
+        env:
+          JWT_TOKEN: ${{ secrets.JWT_TOKEN }}
+        run: ./scripts/add-translation.sh

@@ -1,0 +1,19 @@
+name: Validate Node Translation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set executable permission
+        run: chmod +x scripts/validate.sh
+
+      - name: Validate
+        run: ./scripts/validate.sh
