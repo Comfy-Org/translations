@@ -35,8 +35,8 @@ for folder in translations/*/; do
     echo "adding translation for $NODE_ID..."
     curl "$BASE_URL/nodes/$NODE_ID/translations" \
         --fail-with-body \
-        --header "authorization: bearer $JWT_TOKEN" \
-        --header 'content-type: application/json' \
+        --header "Authorization: Bearer $JWT_TOKEN" \
+        --header 'Content-Type: application/json' \
         -d "@$BODY_FILE"
 
     rm -f "$BODY_FILE"
