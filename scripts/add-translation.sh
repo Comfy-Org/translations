@@ -11,7 +11,7 @@ for folder in translations/*/; do
 
     NODE_ID=$(basename "$folder")
     BODY_FILE="$NODE_ID.json"
-    echo "{}" >"$BODY_FILE"
+    echo '{}' >"$BODY_FILE"
 
     for subfolder in "$folder"/*/; do
         if [ ! -d "$subfolder" ]; then
@@ -31,6 +31,10 @@ for folder in translations/*/; do
             mv "tmp.json" "$BODY_FILE"
 
     done
+
+    jq \
+        '{"data": .}' "$BODY_FILE" >"tmp.json" &&
+        mv "tmp.json" "$BODY_FILE"
 
     echo "adding translation for $NODE_ID..."
     curl "$BASE_URL/nodes/$NODE_ID/translations" \
