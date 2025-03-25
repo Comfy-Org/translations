@@ -10,6 +10,11 @@ for folder in translations/*/; do
     fi
 
     NODE_ID=$(basename "$folder")
+    if ! git diff --name-only HEAD^ | grep 'translations/' | awk -F'/' '{print $2}' | sort -u | grep "$NODE_ID" >/dev/null; then
+        echo "skipping '$NODE_ID' because it has no changes"
+        continue
+    fi
+
     BODY_FILE="$NODE_ID.json"
     echo '{}' >"$BODY_FILE"
 
